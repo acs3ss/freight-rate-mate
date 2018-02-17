@@ -4,8 +4,8 @@ mapboxgl.accessToken = 'pk.eyJ1IjoicmFzaGlkbGFza2VyIiwiYSI6ImNqOXh1b2xodjgwdmQyc
 var map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/mapbox/dark-v9',
-    center: [-120, 50],
-    zoom: 2
+    center: [-95.729182,38.413121],
+    zoom: 8
 });
 
 map.on('load', function() {
@@ -88,82 +88,111 @@ map.on('load', function() {
 //    });
     
     /*************************************** SYMBOL LAYER ***************************************/
-    d3.json('./data/routes.geojson', function(err, data) {
-        if (err) throw err;
-        
-        var coordinateList = [];
-        for (var i = 0; i < data.features.length; i++) {
-            // save full coordinate list for later
-            coordinateList[i] = data.features[i].geometry.coordinates;
-            
-            // start by showing just the first coordinate
-            data.features[i].geometry.coordinates = [coordinateList[i][0]];
-            var featurePoint = JSON.parse('{"type": "FeatureCollection", "features": [' + JSON.stringify(data.features[i]) + ']}');
-            console.log(featurePoint);
-            // add it to the map
-            map.addSource('trace' + i, { type: 'geojson', data: featurePoint });
-            map.addLayer({
-                "id": "trace" + i,
-                "type": "line",
-                "source": "trace" + i,
-                "paint": {
-                    "line-color": ['get', 'color'],
-                    "line-opacity": 0.75,
-                    "line-width": 5
-                }
-            });
-        }
-        // setup the viewport
-//        map.jumpTo({ 'center': coordinates[0], 'zoom': 14 });
-//        map.setPitch(30);
-
-        // on a regular basis, add more coordinates from the saved list and update the map
-        var j = 0;
-        var timer = window.setInterval(function() {
-            for (var i = 0; i < coordinateList.length; i++) {
-                if (j < coordinateList[i].length) {
-                    data.features[i].geometry.coordinates.push(coordinateList[i][j]);
-                    map.getSource('trace0').setData(data);
-                    //map.panTo(coordinateList[i][j]);
-                    j++;
-                } else {
-                    window.clearInterval(timer);
-                }
-            }
-        }, 1000);
-    });
-    map.loadImage('https://png.icons8.com/metro/1600/interstate-truck.png', function(error, image) {
+    map.loadImage('./img/truck.png', function(error, image) {
         if (error) throw error;
         map.addImage('truck', image);
-        /*************************************** SYMBOL LAYER ***************************************/
-        map.addLayer({
-            "id": "points",
-            "type": "symbol",
-            "source": {
-                "type": "geojson",
-                "data": {
-                    "type": "FeatureCollection",
-                    "features": [{
-                        "type": "Feature",
-                        "geometry": {
-                            "type": "Point",
-                            "coordinates": [0, 0]
-                        }
-                    }]
-                }
-            },
-            "layout": {
-                "icon-image": "truck",
-                "icon-size": 0.1,
-                "icon-rotate": 180
+        d3.json('./data/routes.geojson', function(err, data) {
+            if (err) throw err;
+            var lines = [];
+            var options = {units: 'miles'};
+            var point = {
+                "type": "FeatureCollection",
+                "features": [{
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [0,0]
+                    }
+                }]
+            };
+            for (var i = 0; i < data.features.length; i++) {
+                // save full coordinate list for later
+                lines[i] = turf.lineString(data.features[i].geometry.coordinates);
+                // start by showing just the first coordinate
+                var firstCoordinate = lines[i].geometry.coordinates[0];
+                data.features[i].geometry.coordinates = [firstCoordinate];
+                console.log(JSON.stringify(firstCoordinate));
+                var featurePoint = JSON.parse('{"type": "FeatureCollection", "features": [' + JSON.stringify(data.features[i]) + ']}');
+                // add it to the map
+                map.addSource('trace' + i, { type: 'geojson', data: featurePoint });
+                map.addLayer({
+                    "id": "trace" + i,
+                    "type": "line",
+                    "source": "trace" + i,
+                    "paint": {
+                        "line-color": ['get', 'color'],
+                        "line-opacity": 0.75,
+                        "line-width": 5
+                    }
+                });
+                map.addSource('truck' + i, { type: 'geojson', data: './data/point.geojson' });
+                map.addLayer({
+                    "id": "truck"+i,
+                    "type": "symbol",
+                    "source": 'truck' + i,
+                    "layout": {
+                        "icon-image": "truck",
+                        "icon-size": 0.25,
+                    }
+                });
+                point.features[0].geometry.coordinates = firstCoordinate;
+                map.getSource('truck' + i).setData(point);
             }
+
+            // on a regular basis, add more coordinates from the saved list and update the map
+            var j = 0;
+            var timer = window.setInterval(function() {
+                var allComplete = true;
+                for (var i = 0; i < lines.length; i++) {
+                    if (0.05*j < turf.length(lines[i], options)) {
+                        var newCoordinates = turf.along(lines[i], 0.05*j, options).geometry.coordinates;
+                        point.features[0].geometry.coordinates = newCoordinates;
+                        map.getSource('truck' + i).setData(point);
+                        data.features[i].geometry.coordinates.push(newCoordinates);
+                        map.getSource('trace' + i).setData(data);
+                        //map.panTo(newCoordinates);
+                        j++;
+                        allComplete = false;
+                    }
+                }
+                if(allComplete) {
+                    window.clearInterval(timer);
+                }
+            }, 100);
         });
     });
+//    map.loadImage('https://png.icons8.com/metro/1600/interstate-truck.png', function(error, image) {
+//        if (error) throw error;
+//        map.addImage('truck', image);
+//        /*************************************** SYMBOL LAYER ***************************************/
+//        map.addLayer({
+//            "id": "points",
+//            "type": "symbol",
+//            "source": {
+//                "type": "geojson",
+//                "data": {
+//                    "type": "FeatureCollection",
+//                    "features": [{
+//                        "type": "Feature",
+//                        "geometry": {
+//                            "type": "Point",
+//                            "coordinates": [0, 0]
+//                        }
+//                    }]
+//                }
+//            },
+//            "layout": {
+//                "icon-image": "truck",
+//                "icon-size": 0.1,
+//                "icon-rotate": 180
+//            }
+//        });
+//    });
 });
 
 /*************************************** TOGGLE LAYERS ***************************************/
-var toggleableLayerIds = [ 'riskdata-heat', 'lines' ];
-
+var toggleableLayerIds = [ 'riskdata-heat', 'lines' , 'trucks'];
+var NUM_TRUCKS = 3;
 for (var i = 0; i < toggleableLayerIds.length; i++) {
     var id = toggleableLayerIds[i];
 
@@ -176,15 +205,42 @@ for (var i = 0; i < toggleableLayerIds.length; i++) {
         var clickedLayer = this.textContent;
         e.preventDefault();
         e.stopPropagation();
-
-        var visibility = map.getLayoutProperty(clickedLayer, 'visibility');
-
-        if (visibility === 'visible') {
-            map.setLayoutProperty(clickedLayer, 'visibility', 'none');
-            this.className = '';
-        } else {
-            this.className = 'active';
-            map.setLayoutProperty(clickedLayer, 'visibility', 'visible');
+        
+        if(clickedLayer == "lines"){
+            if (this.className === 'active') {
+                for (var i = 0; i < NUM_TRUCKS; i++){
+                    map.setPaintProperty("trace" + i, 'line-opacity', 0);
+                }
+                this.className = '';
+            } else {
+                this.className = 'active';
+                for (var i = 0; i < NUM_TRUCKS; i++){
+                    map.setPaintProperty("trace" + i, 'line-opacity', 0.75);
+                }
+            }
+        }
+        else if(clickedLayer == "trucks"){
+            if (this.className === 'active') {
+                for (var i = 0; i < NUM_TRUCKS; i++){
+                    map.setLayoutProperty("truck" + i, 'visibility', 'none');
+                }
+                this.className = '';
+            } else {
+                this.className = 'active';
+                for (var i = 0; i < NUM_TRUCKS; i++){
+                    map.setLayoutProperty("truck" + i, 'visibility', 'visible');
+                }
+            }
+        }
+        else{
+            var visibility = map.getLayoutProperty(clickedLayer, 'visibility');
+            if (visibility === 'visible') {
+                map.setLayoutProperty(clickedLayer, 'visibility', 'none');
+                this.className = '';
+            } else {
+                this.className = 'active';
+                map.setLayoutProperty(clickedLayer, 'visibility', 'visible');
+            }
         }
     };
 
