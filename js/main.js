@@ -8,11 +8,10 @@ var map = new mapboxgl.Map({
 });
 
 map.on('load', function() {
-    // Add a geojson point source.
-    // Heatmap layers also work with a vector tile source.
     map.addSource('riskdata', {
         "type": "geojson",
-        "data": {"type": "FeatureCollection", "features": [{"type": "Feature", "properties": {"mag": 7 }, "geometry": {"type": "Point", "coordinates": [-95.60302734375, 37.45741810262938 ] } }, {"type": "Feature", "properties": {"mag": 3 }, "geometry": {"type": "Point", "coordinates": [-95.6689453125, 38.77121637244273 ] } }, {"type": "Feature", "properties": {"mag": 1 }, "geometry": {"type": "Point", "coordinates": [-96.8994140625, 38.09998264736481 ] } }, {"type": "Feature", "properties": {"mag": 1 }, "geometry": {"type": "Point", "coordinates": [-93.779296875, 38.25543637637947 ] } }, {"type": "Feature", "properties": {"mag": 3 }, "geometry": {"type": "Point", "coordinates": [-93.7353515625, 39.095962936305476 ] } }, {"type": "Feature", "properties": {"mag": 7 }, "geometry": {"type": "Point", "coordinates": [-94.02099609375, 37.70120736474139 ] } } ] } });
+        "data": "./data/riskdata.geojson"
+    });
 
     map.addLayer({
         "id": "riskdata-heat",
@@ -69,4 +68,51 @@ map.on('load', function() {
             ],
         }
     }, 'waterway-label');
+
+
+    map.addSource('routes', {
+        'type': 'geojson',
+        'data': './data/routes.geojson'
+    });
+
+    map.addLayer({
+        'id': 'lines',
+        'type': 'line',
+        'source': 'routes',
+        'paint': {
+            'line-width': 3,
+            'line-color': ['get', 'color']
+        }
+    });
 });
+
+/*************************************** TOGGLE LAYERS ***************************************/
+var toggleableLayerIds = [ 'riskdata-heat', 'lines' ];
+
+for (var i = 0; i < toggleableLayerIds.length; i++) {
+    var id = toggleableLayerIds[i];
+
+    var link = document.createElement('a');
+    link.href = '#';
+    link.className = 'active';
+    link.textContent = id;
+
+    link.onclick = function (e) {
+        var clickedLayer = this.textContent;
+        e.preventDefault();
+        e.stopPropagation();
+
+        var visibility = map.getLayoutProperty(clickedLayer, 'visibility');
+
+        if (visibility === 'visible') {
+            map.setLayoutProperty(clickedLayer, 'visibility', 'none');
+            this.className = '';
+        } else {
+            this.className = 'active';
+            map.setLayoutProperty(clickedLayer, 'visibility', 'visible');
+        }
+    };
+
+    var layers = document.getElementById('menu');
+    layers.appendChild(link);
+}
