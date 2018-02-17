@@ -4,6 +4,7 @@
         {
             "type": "Feature",
             "properties": {
+                "truckID": 0,
                 "description": "Test description1"
             },
             "geometry": {
@@ -14,6 +15,7 @@
         {
             "type": "Feature",
             "properties": {
+                "truckID": 1,
                 "description": "Test description2"
             },
             "geometry": {
@@ -24,6 +26,7 @@
         {
             "type": "Feature",
             "properties": {
+                "truckID": 2,
                 "description": "Test description3"
             },
             "geometry": {

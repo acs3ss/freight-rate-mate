@@ -97,15 +97,24 @@ textarea {
    WORK HERE BOIS
    ======================================================================================================================================== */
 
-
+/************************GENERAL************************/
 body{
     min-height: 100vh;
     background-color: #444444;
+    font-family: "Circular", sans-serif;
 }
 
+@font-face {
+  font-family: "Circular";
+  src: url("../fonts/circular-book.otf") format("opentype");
+}
+
+/************************NAV************************/
 .nav{
     height: 80px;
     background-color: #444444;
+    box-shadow: 0 2px 4px -1px rgba(0,0,0,0.06), 0 4px 5px 0 rgba(0,0,0,0.06), 0 1px 10px 0 rgba(0,0,0,0.08);
+    position: relative;
 }
 
 .nav-icon{
@@ -114,15 +123,35 @@ body{
     background: #007991;  /* fallback for old browsers */
     background: -webkit-linear-gradient(to bottom, #78ffd6, #007991);  /* Chrome 10-25, Safari 5.1-6 */
     background: linear-gradient(to bottom, #78ffd6, #007991); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    display: inline-block;
 }
 
+.nav-text{
+    display: inline-block;
+    color: white;
+    letter-spacing: 1px;
+    margin: 0;
+    margin-left: 20px;
+    padding: 0;
+    vertical-align: middle;
+}
+
+/************************CONTENT************************/
 .content{
-    
+    box-shadow: 0 2px 4px -1px rgba(0,0,0,0.06), 0 4px 5px 0 rgba(0,0,0,0.06), 0 1px 10px 0 rgba(0,0,0,0.08);
+}
+
+.filters, .details{
+    width: 20%;
+    display: inline-block;
+    height: 80vh;
 }
 .map-container { 
+    display: inline-block;
     margin:0; 
     padding:0; 
     height: 80vh;
+    width: 60%;
     position: relative;
 }
 
@@ -170,20 +199,57 @@ body{
     background: #3074a4;
 }
 
+.mapboxgl-ctrl-bottom-left, .mapboxgl-ctrl-bottom-right{
+    display: none;
+}
+
 .mapboxgl-popup {
     max-width: 400px;
     font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
 }
 
+.details{
+    background: #c3c3c3;
+    vertical-align: top;
+}
 
+.details-title{
+    margin: 0;
+    padding: 20px;
+    padding-bottom: 0px;
+    font-size: 20px;
+}
 
+.details-text{
+    margin: 0;
+    padding: 20px;
+    font-size: 15px;
+}
 
+#button-parent{
+    margin: 0;
+    padding: 20px;
+    padding-top: 0px;
+}
 
+#reset-button{
+    padding-top:15px;
+    padding-bottom: 15px;
+    border-radius: 4px;
+    width: 100%;
+    background: #232526;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to bottom, #414345, #232526);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to bottom, #414345, #232526); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    color:white;
+    border:0px;
+    transition:.2s;
+}
 
-
-
-
-
+#reset-button:hover{
+    -webkit-filter: brightness(150%); /* Safari 6.0 - 9.0 */
+    filter: brightness(150%);
+    transition:.2s;
+}
 
 
 /* ===========================================================================================================================================

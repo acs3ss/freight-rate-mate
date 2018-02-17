@@ -101,6 +101,7 @@ map.on('load', function() {
                     {
                         "type": "Feature",
                         "properties": {
+                            "truckID": 0,
                             "description": "Test description1"
                         },
                         "geometry": {
@@ -111,6 +112,7 @@ map.on('load', function() {
                     {
                         "type": "Feature",
                         "properties": {
+                            "truckID": 1,
                             "description": "Test description2"
                         },
                         "geometry": {
@@ -120,7 +122,9 @@ map.on('load', function() {
                     },
                     {
                         "type": "Feature",
+                        "type": "Feature",
                         "properties": {
+                            "truckID": 2,
                             "description": "Test description3"
                         },
                         "geometry": {
@@ -167,6 +171,7 @@ map.on('load', function() {
 
             // on a regular basis, add more coordinates from the saved list and update the map
             var j = 0;
+            var currID = -1;
             var timer = window.setInterval(function() {
                 var allComplete = true;
                 for (var i = 0; i < lines.length; i++) {
@@ -176,7 +181,9 @@ map.on('load', function() {
                         map.getSource('trucks').setData(point);
                         data.features[i].geometry.coordinates.push(newCoordinates);
                         map.getSource('trace' + i).setData(data);
-                        //map.panTo(newCoordinates);
+                        if(currID == i){
+                            map.panTo(newCoordinates);
+                        }
                         j++;
                         allComplete = false;
                     }
@@ -189,18 +196,29 @@ map.on('load', function() {
             map.on('click', 'trucks', function (e) {
                 var coordinates = e.features[0].geometry.coordinates.slice();
                 var description = e.features[0].properties.description;
-
-                // Ensure that if the map is zoomed out such that multiple
-                // copies of the feature are visible, the popup appears
-                // over the copy being pointed to.
-                while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-                    coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
-                }
-
-                new mapboxgl.Popup()
-                    .setLngLat(coordinates)
-                    .setHTML(description)
-                    .addTo(map);
+                console.log("ayy");
+                if(currID == e.features[0].properties.truckID){
+                    currID = -1;
+                    var elem = document.getElementById('reset-button');
+                    elem.parentNode.removeChild(elem);
+                    document.getElementById("details-text").innerHTML = "Click on a truck to the right.";
+                } else {
+                    currID = e.features[0].properties.truckID;
+                    document.getElementById("details-text").innerHTML = description;
+                    if(!document.getElementById("reset-button")){
+                        var resetButton = document.createElement("button");
+                        resetButton.innerHTML = "Reset";
+                        resetButton.id = "reset-button";
+                        var elem = document.getElementById('button-parent');
+                        elem.appendChild(resetButton);
+                        resetButton.addEventListener ("click", function(){
+                            currID = -1;
+                            var elem = document.getElementById('reset-button');
+                            elem.parentNode.removeChild(elem);
+                            document.getElementById("details-text").innerHTML = "Click on a truck to the right.";
+                        });
+                    }
+                }                
             });
 
             // Change the cursor to a pointer when the mouse is over the places layer.
