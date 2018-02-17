@@ -98,7 +98,33 @@ textarea {
    ======================================================================================================================================== */
 
 
-.map-container { margin:0; padding:0; }
+body{
+    min-height: 100vh;
+    background-color: #444444;
+}
+
+.nav{
+    height: 80px;
+    background-color: #444444;
+}
+
+.nav-icon{
+    width: 60px;
+    padding: 10px;
+    background: #007991;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to bottom, #78ffd6, #007991);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to bottom, #78ffd6, #007991); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+.content{
+    
+}
+.map-container { 
+    margin:0; 
+    padding:0; 
+    height: 80vh;
+    position: relative;
+}
 
 #map { position:absolute; top:0; bottom:0; width:100%; }
 
