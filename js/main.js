@@ -284,7 +284,7 @@ map.on('load', function() {
                         if(currID == i){
                             map.panTo(newCoordinates);
                             document.getElementById('details-location').innerHTML = "X: " + newCoordinates[0] + "<br>Y: " + newCoordinates[1];
-                            if(j % 50 == 0){
+                            if(j % 5 == 0){
                                 var truckSource = map.getSource("trucks")["_data"];
                                 var riskCoordinates = truckSource.features[currID].geometry.coordinates.slice();
                                 //console.log(riskCoordinates);
@@ -296,7 +296,7 @@ map.on('load', function() {
                                 xmlhttp.onreadystatechange = function() {
                                    if (xmlhttp.readyState == XMLHttpRequest.DONE) {
                                        var value = parseFloat(JSON.parse(xmlhttp.responseText).Prediction.predictedValue);
-                                       value = parseInt(((value - 0.2)/0.4)*100);
+                                       value = parseInt(((value - 0.1)/0.35)*100);
                                        document.getElementById('details-risk').innerHTML = "Risk: " + value;
                                    }
                                 }

@@ -8,3 +8,18 @@ Predicting and visualizing trucking risks using machine learning.
 - By knowing high risk factors, insurance companies can provide incentives for truckers to avoid high risk areas
 - Our tool is also useful for carriers because it allows them to view information about their fleet and send them SMS messages directly from the interface
 
+## Tools Used:
+
+- AWS
+    - Amazon Lambda
+    - Amazon API Gateway
+    - Amazon SNS
+    - Amazon Machine Learning
+    - Amazon S3
+- Scikit-learn
+    - XGBoot
+    - Numpy
+    - Pandas
+    - Matplotlib
+- MapBox
+
