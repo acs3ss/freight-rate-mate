@@ -245,6 +245,7 @@ body{
     text-decoration: none;
     text-align: center;
     border-bottom: 2px solid #444444;
+    transition: .2s;
 }
 
 #menu a:first-child {
@@ -266,6 +267,7 @@ body{
 #menu a.active {
     background-color: #2aa1c0;
     color: #ffffff;
+    transition: .2s;
 }
 
 #menu a.active:hover {
@@ -283,13 +285,13 @@ body{
 .details-title{
     margin: 0;
     padding: 20px;
-    padding-bottom: 0px;
     font-size: 20px;
 }
 
 .details-text{
     margin: 0;
     padding: 20px;
+    padding-top: 0px;
     font-size: 15px;
 }
 
@@ -299,7 +301,7 @@ body{
     padding-top: 0px;
 }
 
-#reset-button, #contact-button{
+#reset-button, #contact-button, #risk-button{
     padding-top:15px;
     padding-bottom: 15px;
     margin-bottom: 15px;
@@ -313,7 +315,7 @@ body{
     transition:.2s;
 }
 
-#reset-button:hover, #contact-button:hover{
+#reset-button:hover, #contact-button:hover, #risk-button:hover{
     -webkit-filter: brightness(150%); /* Safari 6.0 - 9.0 */
     filter: brightness(150%);
     transition:.2s;
@@ -443,8 +445,17 @@ body{
    Modify as content requires.
    ========================================================================== */
 
-@media only screen and (min-width: 35em) {
-    /* Style adjustments for viewports that meet the condition */
+@media only screen and (max-width: 830px) {
+    .filters, .map-container, .details{
+        width: 100%;
+    }
+    
+    .map-container{
+        height: 50vh
+    }
+    .content{
+        height: auto;
+    }
 }
 
 @media print,

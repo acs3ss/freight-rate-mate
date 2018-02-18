@@ -10,7 +10,11 @@
                 "driver-name": "Bill Richardson",
                 "driver-information": "Experienced veteran, 30yrs trucking",
                 "driver-reputation": "Good",
-                "driver-contact": "571-263-5955"
+                "driver-contact": "571-263-5955",
+                "DRIVERAGE": 43,
+                "ROADTYPE": 2,
+                "CSURFCOND": 1 ,
+                "SPEEDLIMIT": 50 
             },
             "geometry": {
                 "type": "Point",
@@ -26,7 +30,11 @@
                 "driver-name": "Lana Drah",
                 "driver-information": "Wishes she was an ice road trucker",
                 "driver-reputation": "Satisfactory",
-                "driver-contact": "571-263-5955"
+                "driver-contact": "571-263-5955",
+                "DRIVERAGE": 30,
+                "ROADTYPE": 3,
+                "CSURFCOND": 2,
+                "SPEEDLIMIT": 40
             },
             "geometry": {
                 "type": "Point",
@@ -42,7 +50,91 @@
                 "driver-name": "Xzzy Xavi",
                 "driver-information": "?????????",
                 "driver-reputation": "Risky",
-                "driver-contact": "571-263-5955"
+                "driver-contact": "571-263-5955",
+                "DRIVERAGE": 60,
+                "ROADTYPE": 1,
+                "CSURFCOND": 1,
+                "SPEEDLIMIT": 70
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [-94.603271484375,39.08743603215884]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "truckID": 3,
+                "shipment-description": "More potatoes",
+                "carrier-description": "JBHunt",
+                "driver-name": "Bill Drah",
+                "driver-information": "Wishes he was an ice road trucker",
+                "driver-reputation": "Good",
+                "driver-contact": "571-263-5955",
+                "DRIVERAGE": 50,
+                "ROADTYPE": 1,
+                "CSURFCOND": 2,
+                "SPEEDLIMIT": 50
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [-94.603271484375,39.08743603215884]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "truckID": 4,
+                "shipment-description": "[classified]",
+                "carrier-description": "[redacted]",
+                "driver-name": "[redacted]",
+                "driver-information": "[redacted]",
+                "driver-reputation": "Risky",
+                "driver-contact": "571-263-5955",
+                "DRIVERAGE": 45,
+                "ROADTYPE": 4,
+                "CSURFCOND": 4,
+                "SPEEDLIMIT": 30
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [-94.603271484375,39.08743603215884]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "truckID": 5,
+                "shipment-description": "Spaghetti",
+                "carrier-description": "UPS Freight",
+                "driver-name": "Marshall Mathers",
+                "driver-information": "Sometimes stands up",
+                "driver-reputation": "Good",
+                "driver-contact": "571-263-5955",
+                "DRIVERAGE": 80,
+                "ROADTYPE": 5,
+                "CSURFCOND": 6,
+                "SPEEDLIMIT": 70
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [-94.603271484375,39.08743603215884]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "truckID": 6,
+                "shipment-description": "A couple Teslas",
+                "carrier-description": "Schneider",
+                "driver-name": "Elon Musk",
+                "driver-information": "Secretly an alien",
+                "driver-reputation": "Satisfactory",
+                "driver-contact": "571-263-5955",
+                "DRIVERAGE": 18,
+                "ROADTYPE": 2,
+                "CSURFCOND": 4,
+                "SPEEDLIMIT": 20
             },
             "geometry": {
                 "type": "Point",
