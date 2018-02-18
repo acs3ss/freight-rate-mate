@@ -5,7 +5,12 @@
             "type": "Feature",
             "properties": {
                 "truckID": 0,
-                "description": "Test description1"
+                "shipment-description": "High Priority Items",
+                "carrier-description": "JBHunt",
+                "driver-name": "Bill Richardson",
+                "driver-information": "Experienced veteran, 30yrs trucking",
+                "driver-reputation": "Good",
+                "driver-contact": "571-263-5955"
             },
             "geometry": {
                 "type": "Point",
@@ -16,7 +21,12 @@
             "type": "Feature",
             "properties": {
                 "truckID": 1,
-                "description": "Test description2"
+                "shipment-description": "Lots of potatoes. Literally a truckload",
+                "carrier-description": "Schneider",
+                "driver-name": "Lana Drah",
+                "driver-information": "Wishes she was an ice road trucker",
+                "driver-reputation": "Satisfactory",
+                "driver-contact": "571-263-5955"
             },
             "geometry": {
                 "type": "Point",
@@ -27,7 +37,12 @@
             "type": "Feature",
             "properties": {
                 "truckID": 2,
-                "description": "Test description3"
+                "shipment-description": "Fake Yeezys",
+                "carrier-description": "USA Truck",
+                "driver-name": "Xzzy Xavi",
+                "driver-information": "?????????",
+                "driver-reputation": "Risky",
+                "driver-contact": "571-263-5955"
             },
             "geometry": {
                 "type": "Point",

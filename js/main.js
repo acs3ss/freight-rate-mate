@@ -102,7 +102,12 @@ map.on('load', function() {
                         "type": "Feature",
                         "properties": {
                             "truckID": 0,
-                            "description": "Test description1"
+                            "shipment-description": "High Priority Items",
+                            "carrier-description": "JBHunt",
+                            "driver-name": "Bill Richardson",
+                            "driver-information": "Experienced veteran, 30yrs trucking",
+                            "driver-reputation": "Good",
+                            "driver-contact": "571-263-5955"
                         },
                         "geometry": {
                             "type": "Point",
@@ -113,7 +118,12 @@ map.on('load', function() {
                         "type": "Feature",
                         "properties": {
                             "truckID": 1,
-                            "description": "Test description2"
+                            "shipment-description": "Lots of potatoes. Literally a truckload",
+                            "carrier-description": "Schneider",
+                            "driver-name": "Lana Drah",
+                            "driver-information": "Wishes she was an ice road trucker",
+                            "driver-reputation": "Satisfactory",
+                            "driver-contact": "571-263-5955"
                         },
                         "geometry": {
                             "type": "Point",
@@ -122,10 +132,14 @@ map.on('load', function() {
                     },
                     {
                         "type": "Feature",
-                        "type": "Feature",
                         "properties": {
                             "truckID": 2,
-                            "description": "Test description3"
+                            "shipment-description": "Fake Yeezys",
+                            "carrier-description": "USA Truck",
+                            "driver-name": "Xzzy Xavi",
+                            "driver-information": "?????????",
+                            "driver-reputation": "Risky",
+                            "driver-contact": "571-263-5955"
                         },
                         "geometry": {
                             "type": "Point",
@@ -183,6 +197,7 @@ map.on('load', function() {
                         map.getSource('trace' + i).setData(data);
                         if(currID == i){
                             map.panTo(newCoordinates);
+                            document.getElementById('details-location').innerHTML = "X: " + newCoordinates[0] + "<br>Y: " + newCoordinates[1];
                         }
                         j++;
                         allComplete = false;
@@ -195,19 +210,27 @@ map.on('load', function() {
             
             map.on('click', 'trucks', function (e) {
                 var coordinates = e.features[0].geometry.coordinates.slice();
-                var description = e.features[0].properties.description;
-                console.log("ayy");
+                var description = e.features[0].properties["shipment-description"];
+                var carrierDescription = e.features[0].properties["carrier-description"];
+                var driverName = e.features[0].properties["driver-name"];
+                var driverInfo = e.features[0].properties["driver-information"];
+                var driverReputation = e.features[0].properties["driver-reputation"];
+                var driverContact = e.features[0].properties["driver-contact"];
+                console.log(e.features[0].properties);
                 if(currID == e.features[0].properties.truckID){
                     currID = -1;
                     var elem = document.getElementById('reset-button');
                     elem.parentNode.removeChild(elem);
+                    var elem = document.getElementById('contact-button');
+                    elem.parentNode.removeChild(elem);
                     document.getElementById("details-text").innerHTML = "Click on a truck to the right.";
                 } else {
                     currID = e.features[0].properties.truckID;
-                    document.getElementById("details-text").innerHTML = description;
+                    var fullDescription = "Shipment Description: " + description + "<br><br>" + "Carrier Description: " + carrierDescription + "<br><br>" + "Driver Name: " + driverName + "<br><br>" + "Driver Informaion: " + driverInfo + "<br><br>" + "Driver Reputation: " + driverReputation + "<br><br>" + "Driver Contact: " + driverContact;
+                    document.getElementById("details-text").innerHTML = fullDescription;
                     if(!document.getElementById("reset-button")){
                         var resetButton = document.createElement("button");
-                        resetButton.innerHTML = "Reset";
+                        resetButton.innerHTML = "Send Alert";
                         resetButton.id = "reset-button";
                         var elem = document.getElementById('button-parent');
                         elem.appendChild(resetButton);
@@ -216,6 +239,16 @@ map.on('load', function() {
                             var elem = document.getElementById('reset-button');
                             elem.parentNode.removeChild(elem);
                             document.getElementById("details-text").innerHTML = "Click on a truck to the right.";
+                        });
+                    }
+                    if(!document.getElementById("contact-button")){
+                        var contactButton = document.createElement("button");
+                        contactButton.innerHTML = "Reset";
+                        contactButton.id = "contact-button";
+                        var elem = document.getElementById('button-parent');
+                        elem.appendChild(contactButton);
+                        contactButton.addEventListener ("click", function(){
+                            console.log('Sent Message');
                         });
                     }
                 }                

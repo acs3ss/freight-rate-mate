@@ -232,9 +232,10 @@ body{
     padding-top: 0px;
 }
 
-#reset-button{
+#reset-button, #contact-button{
     padding-top:15px;
     padding-bottom: 15px;
+    margin-bottom: 15px;
     border-radius: 4px;
     width: 100%;
     background: #232526;  /* fallback for old browsers */
@@ -245,7 +246,7 @@ body{
     transition:.2s;
 }
 
-#reset-button:hover{
+#reset-button:hover, #contact-button:hover{
     -webkit-filter: brightness(150%); /* Safari 6.0 - 9.0 */
     filter: brightness(150%);
     transition:.2s;
