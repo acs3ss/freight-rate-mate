@@ -1,7 +1,3 @@
-![Alt text](../asset-tracking.jpg?raw=true "Asset Tracking")
-![Alt text](../heatmap.jpg?raw=true "Heatmap")
-![Alt text](../cloud-arch.jpg?raw=true "Cloud Architecture")
-
 # Freight Rate Mate
 
 ## Project Overview
