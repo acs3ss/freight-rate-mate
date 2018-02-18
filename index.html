@@ -17,6 +17,7 @@
         <script src='https://npmcdn.com/@turf/turf/turf.min.js'></script>
         <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.44.1/mapbox-gl.js'></script>
         <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.44.1/mapbox-gl.css' rel='stylesheet' />
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     </head>
     <body>
         <!--[if lte IE 9]>
@@ -31,9 +32,46 @@
 
         <div class="content">
             <div class="filters">
-                
-            </div><div class="map-container">
+                <div class="control-group">
+                    <p class="control-text">Toggle Visualization</p>
+                </div>
                 <nav id="menu"></nav>
+                <div class="control-group">
+                    <p class="control-text">Risk Facets</p>
+                    <label class="control control--checkbox">Crash Location
+                        <input type="checkbox" checked="checked"/>
+                        <div class="control__indicator"></div>
+                    </label>
+                    <label class="control control--checkbox">Crash Severity
+                        <input type="checkbox" checked="checked"/>
+                        <div class="control__indicator"></div>
+                    </label>
+                    <label class="control control--checkbox">Road Type
+                        <input type="checkbox" checked="checked"/>
+                        <div class="control__indicator"></div>
+                    </label>
+                    <label class="control control--checkbox">Surface Conditions
+                        <input type="checkbox" checked="checked"/>
+                        <div class="control__indicator"></div>
+                    </label>
+                    <label class="control control--checkbox">Vehicle Configuration
+                        <input type="checkbox" checked="checked"/>
+                        <div class="control__indicator"></div>
+                    </label>
+                    <label class="control control--checkbox">Speed Limit
+                        <input type="checkbox" checked="checked"/>
+                        <div class="control__indicator"></div>
+                    </label>
+                    <label class="control control--checkbox">Driver Age
+                        <input type="checkbox" checked="checked"/>
+                        <div class="control__indicator"></div>
+                    </label>
+                    <label class="control control--checkbox">Risk Aggregate
+                        <input type="checkbox" checked="checked"/>
+                        <div class="control__indicator"></div>
+                    </label>
+                </div>
+            </div><div class="map-container">
                 <div id='map'></div>
             </div><div id="details" class="details">
                 <p class="details-title">Truck Details</p>
@@ -44,7 +82,7 @@
         </div>
         
         <div class="footer">
-            
+            <span>Made with <i class="fa fa-heart"></i> by Rashid Lasker, Chris Geier, and Austin Sullivan</span>
         </div>
 
         <script src="js/vendor/modernizr-3.5.0.min.js"></script>

@@ -139,12 +139,83 @@ body{
 /************************CONTENT************************/
 .content{
     box-shadow: 0 2px 4px -1px rgba(0,0,0,0.06), 0 4px 5px 0 rgba(0,0,0,0.06), 0 1px 10px 0 rgba(0,0,0,0.08);
+    height: 80vh
+}
+
+.control-group{
+    padding: 20px;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.control-text{
+    font-size: 20px;
+    color:white;
+}
+.control {
+  display: block;
+  position: relative;
+  padding-left: 30px;
+  margin-bottom: 15px;
+  cursor: pointer;
+  font-size: 15px;
+    color:white;
+}
+.control input {
+  position: absolute;
+  z-index: -1;
+  opacity: 0;
+}
+.control__indicator {
+  position: absolute;
+  top: 2px;
+  left: 0;
+  height: 20px;
+  width: 20px;
+  background: #e6e6e6;
+}
+.control:hover input ~ .control__indicator,
+.control input:focus ~ .control__indicator {
+  background: #ccc;
+}
+.control input:checked ~ .control__indicator {
+  background: #2aa1c0;
+}
+.control:hover input:not([disabled]):checked ~ .control__indicator,
+.control input:checked:focus ~ .control__indicator {
+  background: #0e647d;
+}
+.control input:disabled ~ .control__indicator {
+  background: #e6e6e6;
+  opacity: 0.6;
+  pointer-events: none;
+}
+.control__indicator:after {
+  content: '';
+  position: absolute;
+  display: none;
+}
+.control input:checked ~ .control__indicator:after {
+  display: block;
+}
+.control--checkbox .control__indicator:after {
+  left: 8px;
+  top: 4px;
+  width: 3px;
+  height: 8px;
+  border: solid #fff;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+.control--checkbox input:disabled ~ .control__indicator:after {
+  border-color: #7b7b7b;
 }
 
 .filters, .details{
     width: 20%;
     display: inline-block;
     height: 80vh;
+    vertical-align: top;
 }
 .map-container { 
     display: inline-block;
@@ -159,14 +230,9 @@ body{
 
 #menu {
     background: #fff;
-    position: absolute;
     z-index: 1;
-    top: 10px;
-    right: 10px;
-    border-radius: 3px;
-    width: 120px;
-    border: 1px solid rgba(0,0,0,0.4);
-    font-family: 'Open Sans', sans-serif;
+    border-radius: 4px;
+    margin: 20px;
 }
 
 #menu a {
@@ -177,12 +243,19 @@ body{
     padding: 0;
     padding: 10px;
     text-decoration: none;
-    border-bottom: 1px solid rgba(0,0,0,0.25);
     text-align: center;
+    border-bottom: 2px solid #444444;
+}
+
+#menu a:first-child {
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
 }
 
 #menu a:last-child {
-    border: none;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+    border-bottom: 0px solid #444444;
 }
 
 #menu a:hover {
@@ -191,26 +264,20 @@ body{
 }
 
 #menu a.active {
-    background-color: #3887be;
+    background-color: #2aa1c0;
     color: #ffffff;
 }
 
 #menu a.active:hover {
-    background: #3074a4;
+    background: #0e647d;
 }
 
 .mapboxgl-ctrl-bottom-left, .mapboxgl-ctrl-bottom-right{
     display: none;
 }
 
-.mapboxgl-popup {
-    max-width: 400px;
-    font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
-}
-
 .details{
     background: #c3c3c3;
-    vertical-align: top;
 }
 
 .details-title{
@@ -252,6 +319,39 @@ body{
     transition:.2s;
 }
 
+/************************FOOTER************************/
+
+.footer{
+    padding-top: 35px;
+    padding-bottom: 35px;
+    margin: 0 auto;
+}
+
+.footer span {
+  color: white;
+  font-size: 16px;
+  display: block;
+  text-align: center;
+}
+
+.footer .fa {
+  color: #E90606;
+  margin: 0 3px;
+  font-size: 16px;
+  animation: pound 0.35s infinite alternate;
+  -webkit-animation: pound 0.35s infinite alternate;
+}
+
+@-webkit-keyframes pound {
+  to {
+    transform: scale(1.1);
+  }
+}
+@keyframes pound {
+  to {
+    transform: scale(1.1);
+  }
+}
 
 /* ===========================================================================================================================================
    Helper classes

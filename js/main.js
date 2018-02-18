@@ -224,13 +224,14 @@ map.on('load', function() {
                     var elem = document.getElementById('contact-button');
                     elem.parentNode.removeChild(elem);
                     document.getElementById("details-text").innerHTML = "Click on a truck to the right.";
+                    document.getElementById('details-location').innerHTML = "";
                 } else {
                     currID = e.features[0].properties.truckID;
                     var fullDescription = "Shipment Description: " + description + "<br><br>" + "Carrier Description: " + carrierDescription + "<br><br>" + "Driver Name: " + driverName + "<br><br>" + "Driver Informaion: " + driverInfo + "<br><br>" + "Driver Reputation: " + driverReputation + "<br><br>" + "Driver Contact: " + driverContact;
                     document.getElementById("details-text").innerHTML = fullDescription;
                     if(!document.getElementById("reset-button")){
                         var resetButton = document.createElement("button");
-                        resetButton.innerHTML = "Send Alert";
+                        resetButton.innerHTML = "Reset";
                         resetButton.id = "reset-button";
                         var elem = document.getElementById('button-parent');
                         elem.appendChild(resetButton);
@@ -238,12 +239,15 @@ map.on('load', function() {
                             currID = -1;
                             var elem = document.getElementById('reset-button');
                             elem.parentNode.removeChild(elem);
+                            var elem = document.getElementById('contact-button');
+                            elem.parentNode.removeChild(elem);
                             document.getElementById("details-text").innerHTML = "Click on a truck to the right.";
+                            document.getElementById('details-location').innerHTML = "";
                         });
                     }
                     if(!document.getElementById("contact-button")){
                         var contactButton = document.createElement("button");
-                        contactButton.innerHTML = "Reset";
+                        contactButton.innerHTML = "Send Alert";
                         contactButton.id = "contact-button";
                         var elem = document.getElementById('button-parent');
                         elem.appendChild(contactButton);
@@ -268,7 +272,7 @@ map.on('load', function() {
 });
 
 /*************************************** TOGGLE LAYERS ***************************************/
-var toggleableLayerIds = [ 'riskdata-heat', 'lines' , 'trucks'];
+var toggleableLayerIds = [ 'Risk Heatmap', 'Routes' , 'Trucks'];
 var NUM_TRUCKS = 3;
 for (var i = 0; i < toggleableLayerIds.length; i++) {
     var id = toggleableLayerIds[i];
@@ -283,7 +287,7 @@ for (var i = 0; i < toggleableLayerIds.length; i++) {
         e.preventDefault();
         e.stopPropagation();
         
-        if(clickedLayer == "lines"){
+        if(clickedLayer == "Routes"){
             if (this.className === 'active') {
                 for (var i = 0; i < NUM_TRUCKS; i++){
                     map.setPaintProperty("trace" + i, 'line-opacity', 0);
@@ -296,7 +300,7 @@ for (var i = 0; i < toggleableLayerIds.length; i++) {
                 }
             }
         }
-        else if(clickedLayer == "trucks"){
+        else if(clickedLayer == "Trucks"){
             if (this.className === 'active') {
                 map.setLayoutProperty("trucks", 'visibility', 'none');
                 this.className = '';
