@@ -371,7 +371,28 @@ map.on('load', function() {
                         var elem = document.getElementById('button-parent');
                         elem.appendChild(contactButton);
                         contactButton.addEventListener ("click", function(){
-                            console.log('Sent Message');
+                            
+                            var xmlhttp = new XMLHttpRequest();   // new HttpRequest instance
+                            xmlhttp.onreadystatechange = function() {
+                               if (xmlhttp.readyState == XMLHttpRequest.DONE) {
+                                    console.log('Sent Message');
+                                    // Get the snackbar DIV
+                                    var x = document.getElementById("snackbar")
+                                    // Add the "show" class to DIV
+                                    x.className = "show";
+                                    // After 3 seconds, remove the show class from DIV
+                                    setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+                               }
+                            }
+                            xmlhttp.open("POST", "https://8qbrg7v40a.execute-api.us-east-1.amazonaws.com/WOAH/sns");
+                            xmlhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+                            xmlhttp.send(JSON.stringify(
+                                { 
+                                    "number": "+14344773369",
+                                    "message": "Watch yourself."
+                                })
+                            );
+                            xmlhttp.statusText;
                         });
                     }
                 }                
