@@ -1,5 +1,7 @@
 # Freight Rate Mate
 
+![Application](https://i.imgur.com/ApNhxrp.jpg)
+
 ## Project Overview
 
 - Dynamic visualization of truck location data
